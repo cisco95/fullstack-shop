@@ -1,3 +1,3 @@
 # Fullstack practice site for commerce. Buy and sell goods. 
 
-## uses MEAN stack
+## composed of two projects, front end under "buy-and-sell".
