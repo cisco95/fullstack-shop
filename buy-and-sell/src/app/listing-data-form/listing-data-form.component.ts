@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { Listing } from '../types';
+
 
 @Component({
   selector: 'app-listing-data-form',
@@ -11,7 +13,13 @@ import { Router, RouterLink } from '@angular/router';
 })
 
 export class ListingDataFormComponent implements OnInit{
-  @Input() buttonText: string = '';
+  @Input() buttonText= '';
+  @Input() currentName = "";
+  @Input() currentDescription = "";
+  @Input() currentPrice: number = 0;
+
+  
+  @Output() onSubmit = new EventEmitter<Listing>();
   name: string = '';
   description: string = '';
   price: string = '';
@@ -22,11 +30,18 @@ export class ListingDataFormComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.name = this.currentName;
+    this.description = this.currentDescription;
+    this.price = this.currentPrice.toString();
   }
 
-  onSubmit(): void {
-    alert("Creating a new listing...");
-    this.router.navigateByUrl('/my-listings');
+  onButtonClicked(): void {
+    this.onSubmit.emit({
+      id: null!,
+      name: this.name,
+      description: this.description,
+      price: Number(this.price),
+    })
   }
 
 
