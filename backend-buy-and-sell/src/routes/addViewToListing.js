@@ -2,7 +2,7 @@ import { db } from "../database";
 
 export const addViewToListingRoute = {
     method: 'POST',
-    path: '/api/listings/{id}/add-view', 
+    path: '/api/listings/{id}/add-view', //test with "curl -X POST http://localhost:8000/api/listings/123/add-view"
     handler: async (req, h) => {
         try {
             const id = req.params.id;
