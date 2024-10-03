@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { Listing } from '../types';
-import { fakeListings } from '../fake-data';
+// import { fakeListings } from '../fake-data';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ListingsService } from '../listings.service';
+
+// Tools to make network requests, need: 
+// RxJS - library to work with async and event based code easier
+// HTTPClient - angular module to make request to server
 
 @Component({
   selector: 'app-listings-page',
@@ -13,13 +18,17 @@ import { CommonModule } from '@angular/common';
 })
 export class ListingsPageComponent {
   listings: Listing[] = [];
-
-  constructor() {}
-
+  
+  constructor(
+    private listingsService: ListingsService
+  ) {}
+  
+  
   ngOnInit(): void {
-    this.listings = fakeListings;
+    this.listingsService.getListings()
+      .subscribe(listings => this.listings = listings)
   }
-
-
-
+  
+  
+  
 }
