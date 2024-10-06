@@ -6,7 +6,7 @@ export const getListingRoute = {
     handler: async (req, h) => {
         const id = req.params.id;
         return new Promise((resolve, reject) => {
-            db.all("SELECT * FROM listings WHERE id=?", [id], (err, rows)=>{
+            db.get("SELECT * FROM listings WHERE id=?", [id], (err, rows)=>{
                 if (err) {
                     console.error('Database error:', err.message);
                     reject(h.response({ error: err.message }).code(500));
