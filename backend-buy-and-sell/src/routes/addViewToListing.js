@@ -3,9 +3,9 @@ import { db } from "../database";
 export const addViewToListingRoute = {
     method: 'POST',
     path: '/api/listings/{id}/add-view', //test with "curl -X POST http://localhost:8000/api/listings/123/add-view"
-    handler: async (req, h) => {
+    handler: async (request, h) => {
         try {
-            const id = req.params.id;
+            const id = request.params.id;
             await db.run('UPDATE listings SET views=views+1 WHERE id =?', [id], );
             const results = await db.all('SELECT * FROM listings WHERE id=?', [id],(err, rows)=>{
                 if (err) {

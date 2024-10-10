@@ -3,7 +3,7 @@ import { db } from "../database";
 export const getAllListingsRoute = {
     method: 'GET',
     path: '/api/listings',
-    handler: async (req, h) => {
+    handler: async (request, h) => {
         return new Promise((resolve, reject) => {
             db.all("SELECT * FROM listings", [], (err, rows) => {
                 if (err) {
@@ -11,7 +11,7 @@ export const getAllListingsRoute = {
                     reject(h.response({ error: err.message }).code(500));
                 } else {
                     console.log('Database query successful:', rows);
-                    resolve(h.response(rows).code(200));
+                    resolve(h.response(rows).code(200).header('X-Custom-Header', 'Successful Call!'));
                 }
             });
         }).catch(error => {

@@ -17,7 +17,6 @@ import { NgIf } from '@angular/common';
 export class ListingDetailPageComponent implements OnInit {
   isLoading: boolean = true;
   listing!: Listing;
-  
   constructor(
     private route: ActivatedRoute, 
     private listingsService: ListingsService,
@@ -25,13 +24,20 @@ export class ListingDetailPageComponent implements OnInit {
   
   ngOnInit(): void {
     const id = String(this.route.snapshot.paramMap.get('id'));
-    this.listingsService.getListings()
-      .subscribe((listing) => {
-        this.listing = listing.filter((item)=> item.id === id)[0] //only works if using getAllListings route. 
+    console.log(id)
+    // this.listingsService.getListings()
+    //   .subscribe((listing) => {
+    //     this.listing = listing.filter((item)=> item.id === id)[0] //only works if using getAllListings route. 
+    //     this.isLoading = false;
+    //   })
+    this.listingsService.getListingById(id)
+      .subscribe((listing)=>{
+        this.listing = listing;
         this.isLoading = false;
       })
-    // this.listingsService.addViewToListing(id!)
-    //   .subscribe(() => console.log("Views Updated"))
+    this.listingsService.addViewToListing(id).subscribe((listing) => {
+        this.listing = [listing].filter((item)=> item.id === id)[0]
+      })
   }
 
 }

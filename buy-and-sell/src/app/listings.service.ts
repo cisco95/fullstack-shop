@@ -14,21 +14,26 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ListingsService {
+  // use for testing. 
+  // private apiUrl = 'https://upgraded-space-fortnight-q9qq5gw9479c9q7x-8000.app.github.dev/api'
   
   constructor(
     private http: HttpClient, 
   ) { }
   
-  getListings(): Observable<Listing[]> {
-    return this.http.get<Listing[]>('/api/listings');
+  getListings(id: string): Observable<Listing[]> {
+    // console.log(id)
+    return this.http.get<Listing[]>(`/api/listings`);
   }
 
-  getListingById(id: string): Observable<Listing> {
+  getListingById(id: string): Observable<Listing> { //This is getting called, but the right thing is not getting returned. Why different than the other api endpoint??
+    console.log("inside the services:", id)
     return this.http.get<Listing>(`/api/listings/${id}`)
   }
 
   addViewToListing(id: string): Observable<Listing> {
     return this.http.post<Listing>(
+      // `${this.apiUrl}/listings/${id}/add-view`,
       `/api/listings/${id}/add-view`,
       {}, 
       httpOptions

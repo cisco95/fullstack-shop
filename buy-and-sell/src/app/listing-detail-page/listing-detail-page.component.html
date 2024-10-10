@@ -1,4 +1,4 @@
-<div class="content-b" >
+<div class="content-b" *ngIf="listing; else loading">
     <p>This listing has been viewed {{listing.views}} times.</p>
     <a routerLink="/listings">
         <button>Back</button>
@@ -10,3 +10,8 @@
         <button>Contact Seller</button>
     </a>
 </div>
+
+<ng-template #loading>
+    <div *ngIf="isLoading">Loading...</div>
+    <div *ngIf="!isLoading">Listing not found.</div>
+</ng-template>
