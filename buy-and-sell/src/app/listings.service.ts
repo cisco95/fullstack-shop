@@ -21,14 +21,14 @@ export class ListingsService {
     private http: HttpClient, 
   ) { }
   
-  getListings(id: string): Observable<Listing[]> {
+  getListings(): Observable<Listing[]> {
     // console.log(id)
     return this.http.get<Listing[]>(`/api/listings`);
   }
 
   getListingById(id: string): Observable<Listing> { //This is getting called, but the right thing is not getting returned. Why different than the other api endpoint??
     console.log("inside the services:", id)
-    return this.http.get<Listing>(`/api/listings/${id}`)
+    return this.http.get<Listing>(`/api/listings/${id}'`) //https://upgraded-space-fortnight-q9qq5gw9479c9q7x-8000.app.github.dev/api...
   }
 
   addViewToListing(id: string): Observable<Listing> {
