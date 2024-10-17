@@ -38,13 +38,20 @@ export class ListingDetailPageComponent implements OnInit {
     //     this.isLoading = false;
     //   })
 
-    // This has not been working, uses getListingById route. 
+    // These have not been working, uses getListingById route. 
 
     this.listingsService.getListingById(id)
-      .subscribe((listing)=>{
-        this.listing = listing;
+      .subscribe((listing) => {
+        console.log("Received listing: ", listing)
+        this.listing = listing[0]  
         this.isLoading = false;
       })
+
+    // this.listingsService.getListingById(id)
+    //   .subscribe((listing)=>{
+    //     this.listing = listing;
+    //     this.isLoading = false;
+    //   })
       
     // this.listingsService.addViewToListing(id).subscribe((listing) => {
     //     this.listing = [listing].filter((item)=> item.id === id)[0]
