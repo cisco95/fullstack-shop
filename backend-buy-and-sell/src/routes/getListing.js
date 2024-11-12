@@ -5,7 +5,7 @@ export const getListingRoute = {
     path: '/api/listings/{id}', 
     handler: async (request, h) => {
         console.log("Backend is being reached!")
-        const id = request.params.id;
+        const id = request.params.id.replace(/["']/g, "");
         return new Promise((resolve, reject) => {
             db.get("SELECT * FROM listings WHERE id=?", [id], (err, rows)=>{
                 if (err) {
