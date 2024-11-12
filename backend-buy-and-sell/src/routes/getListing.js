@@ -4,9 +4,10 @@ export const getListingRoute = {
     method: 'GET',
     path: '/api/listings/{id}',
     handler: async (request, h) => {
+        const id = request.params.id.replace(/["']/g, "");
         console.log("This has reached the server/DB using getListing")
         return new Promise((resolve, reject) => {
-            db.all("SELECT * FROM listings", [], (err, rows) => {
+            db.all("SELECT * FROM listings WHERE id=?", [id], (err, rows) => {
                 if (err) {
                     console.error('Database error:', err.message);
                     reject(h.response({ error: err.message })
