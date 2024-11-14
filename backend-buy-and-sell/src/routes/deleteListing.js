@@ -18,6 +18,6 @@ export const deleteListingRoute = {
                 }
             });
         });
-        return "Item Deleted Successfully"
+        return {message: "Item Deleted Successfully"}
     }
 }

@@ -17,33 +17,33 @@ const start = async () => {
     });
 
     // Add global CORS handler
-    server.ext('onPreResponse', (request, h) => {
-        const response = request.response;
-        if (response.isBoom) {
-            response.output.headers['Access-Control-Allow-Origin'] = 'https://upgraded-space-fortnight-q9qq5gw9479c9q7x-4200.app.github.dev';
-            response.output.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
-            response.output.headers['Access-Control-Allow-Headers'] = 'Accept, Content-Type, Authorization';
-        } else {
-            response.header('Access-Control-Allow-Origin', 'https://upgraded-space-fortnight-q9qq5gw9479c9q7x-4200.app.github.dev');
-            response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-            response.header('Access-Control-Allow-Headers', 'Accept, Content-Type, Authorization');
-        }
-        return h.continue;
-    });
+    // server.ext('onPreResponse', (request, h) => {
+    //     const response = request.response;
+    //     if (response.isBoom) {
+    //         response.output.headers['Access-Control-Allow-Origin'] = 'https://upgraded-space-fortnight-q9qq5gw9479c9q7x-4200.app.github.dev';
+    //         response.output.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
+    //         response.output.headers['Access-Control-Allow-Headers'] = 'Accept, Content-Type, Authorization';
+    //     } else {
+    //         response.header('Access-Control-Allow-Origin', 'https://upgraded-space-fortnight-q9qq5gw9479c9q7x-4200.app.github.dev');
+    //         response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    //         response.header('Access-Control-Allow-Headers', 'Accept, Content-Type, Authorization');
+    //     }
+    //     return h.continue;
+    // });
 
     routes.forEach(route => server.route(route));
 
-    server.route({
-        method: 'GET',
-        path: '/api/test-cors',
-        handler: async (request, h) => {
-            console.log("Received request for listing id:", request.params.id);
-            return h.response({'message':'CORS is working'})
-                     .header('Access-Control-Allow-Origin', 'https://upgraded-space-fortnight-q9qq5gw9479c9q7x-4200.app.github.dev')
-                     .header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-                     .header('Access-Control-Allow-Headers', 'Accept, Content-Type, Authorization');
-        }
-    });
+    // server.route({
+    //     method: 'GET',
+    //     path: '/api/test-cors',
+    //     handler: async (request, h) => {
+    //         console.log("Received request for listing id:", request.params.id);
+    //         return h.response({'message':'CORS is working'})
+    //                  .header('Access-Control-Allow-Origin', 'https://upgraded-space-fortnight-q9qq5gw9479c9q7x-4200.app.github.dev')
+    //                  .header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    //                  .header('Access-Control-Allow-Headers', 'Accept, Content-Type, Authorization');
+    //     }
+    // });
     
 
     await server.start();
