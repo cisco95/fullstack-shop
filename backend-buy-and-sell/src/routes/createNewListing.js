@@ -1,5 +1,6 @@
 import {v4 as uuid} from 'uuid';
 import { db } from '../database';
+import * as admin from 'firebase-admin';
 
 
 export const createNewListingRoute ={
@@ -7,9 +8,11 @@ export const createNewListingRoute ={
     /* curl -X POST -H "Content-Type: application/json" -d '{"name": "AC", "description": "an AC unit", "price": 100}' http://localhost:8000/api/listings */
     path: '/api/listings', 
     handler: async (req, h) =>{
+        const token = req.headers.authtoken;
+        const user = await admin.auth().verifyIdToken(token);
         const id = uuid();
         const {name = '', description = '', price = 0} = req.payload;
-        const userId = '12345';
+        const userId = user.user_id;
         const views = 0;
 
         new Promise((resolve, reject) => {
