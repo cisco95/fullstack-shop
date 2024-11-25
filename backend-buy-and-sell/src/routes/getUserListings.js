@@ -1,10 +1,15 @@
+import * as admin from 'firebase-admin';
 import { db } from "../database";
+import Boom from '@hapi/boom';
 
 export const getUserListingsRoute ={
     method: 'GET',
     path: '/api/users/{userId}/listings', //curl -v http://localhost:8000/api/users/12345/listings
     handler: async (req, h) => {
+        const token = req.headers.authtoken;
+        const user = await admin.auth().verifyIdToken(token);
         const userId = req.params.userId;
+        if (user.user_id !== userId) throw Boom.unauthorized('Users can only access their own listings. ')
         return new Promise((resolve, reject) => {
             db.all("SELECT * FROM listings WHERE user_id=?", [userId], (err, rows)=>{
                 if (err) {
