@@ -1,8 +1,6 @@
 import mysql from 'mysql'
 import { KEYS } from '../KEYS.js'
 
-console.log(KEYS)
-
 const connection = mysql.createConnection({
     host: KEYS.HOST,
     user: KEYS.USER,
