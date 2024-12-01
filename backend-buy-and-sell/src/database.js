@@ -1,24 +1,30 @@
-import sqlite3 from 'sqlite3';
+import mysql from 'mysql'
+import { KEYS } from '../KEYS.js'
 
-export const db = new sqlite3.Database('./db/buy-sell-db.db', (err) =>{
-    if (err) {
-        console.log(err.message);
-    }
-    console.log('Connected to the database')
-})
+console.log(KEYS)
 
-/*
-//This also works, but uses an absolute path. 
+const connection = mysql.createConnection({
+    host: KEYS.HOST,
+    user: KEYS.USER,
+    password: KEYS.PASSWORD,
+    database: 'buy-and-sell'
+});
 
-import sqlite3 from 'sqlite3';
-import path from 'path'
+export const db = {
+    connect: () => connection.connect(), 
+    query: (queryString, escapedValues) =>
+        new Promise((resolve, reject) => {
+            connection.query(queryString, escapedValues, (error, results, fields) => {
+                if (error) reject(error);
+                resolve({results, fields});
+            })
+        }),
+    end: () => connection.end(),
+}
 
-const dbPath = path.resolve(__dirname, '../db/buy-sell-db.db');
 
-export const db = new sqlite3.Database(dbPath, (err) =>{
-    if (err) {
-        console.log(err.message);
-    } else {
-        console.log('Connected to the database')
-    }
-}) */
+
+
+
+
+
