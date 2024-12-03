@@ -1,6 +1,27 @@
 import { db } from "../database";
 
 export const addViewToListingRoute = {
+method: 'POST',
+path: '/api/listings/{id}/add-view', 
+handler: async (req, h) => {
+    const id = req.params.id.replace(/["']/g, "");
+    console.log(`Route /api/listings/${id}/add-view reached, connecting to DB`)
+    await db.query(
+        'UPDATE listings SET views=views+1 WHERE id =?', 
+        [id], 
+    );
+    console.log("View incremented, updated listing:")
+    const { results } = await db.query(
+        'SELECT * FROM listings WHERE id=?', [id],
+        [id], 
+    );
+    console.log(results);
+    return results;       
+}
+}
+
+/*
+export const addViewToListingRoute = {
     method: 'POST',
     path: '/api/listings/{id}/add-view', //test with "curl -X POST http://localhost:8000/api/listings/123/add-view"
     handler: async (request, h) => {
@@ -23,7 +44,7 @@ export const addViewToListingRoute = {
         }
     }
 }
-
+*/
 
 
 /*

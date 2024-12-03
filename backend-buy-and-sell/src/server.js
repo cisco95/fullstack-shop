@@ -20,6 +20,7 @@ const start = async () => {
     routes.forEach(route => server.route(route));
     
     db.connect();
+    
     await server.start();
     console.log(`Server is listening on ${server.info.uri}`);
 }
