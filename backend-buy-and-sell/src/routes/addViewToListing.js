@@ -12,7 +12,7 @@ handler: async (req, h) => {
     );
     console.log("View incremented, updated listing:")
     const { results } = await db.query(
-        'SELECT * FROM listings WHERE id=?', [id],
+        'SELECT * FROM listings WHERE id=?',
         [id], 
     );
     console.log(results);
