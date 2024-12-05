@@ -95,7 +95,7 @@ export class ListingsService {
       this.auth.user.subscribe(user => {
         user && user.getIdToken().then(token => {
           return this.http.post<Listing>(
-            `api/listing/${id}`,
+            `/api/listings/${id}`,
             {name, description, price},
             httpOptionsWithAuthToken(token),
           ).subscribe(() => observer.next());
