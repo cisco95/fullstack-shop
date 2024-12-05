@@ -15,7 +15,7 @@ export const createNewListingRoute = {
         const views = 0;
         console.log(`Route /api/listings/ for POST has been reached, connecting to DB`)
         await db.query(
-            `INSER INTO listings(id, name, description, price, user_id, views) 
+            `INSERT INTO listings(id, name, description, price, user_id, views) 
             VALUES(?, ?, ?, ?, ?, ?)`,
             [id, name, description, price, userId, views],
         )

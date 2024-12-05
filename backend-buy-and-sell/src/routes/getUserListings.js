@@ -12,7 +12,7 @@ export const getUserListingsRoute = {
         const userId = req.params.userId;
         console.log(userId);
         if (user.user_id !== userId) throw Boom.unauthorized('User can only access their own listings.');
-        console.log(`Route /api/users/{userId}/listings reached, connecting to DB`)
+        console.log(`Route /api/users/${userId}/listings reached, connecting to DB`)
         const { results } = await db.query(
             'SELECT * FROM listings WHERE user_id=?', 
             [userId],

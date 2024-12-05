@@ -5,6 +5,7 @@ export const updateListingRoute = {
     method: 'POST', 
     path: '/api/listings/{id}',
     handler: async(req, h) => {
+        console.log("Backend called for post to /api/listings/{id}")
         const { id } = req.params;
         const {name, description, price} = req.payload;
         const token = req.headers.authtoken;
