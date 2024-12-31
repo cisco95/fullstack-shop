@@ -3,6 +3,8 @@ import routes from './routes';
 import { db } from './database'
 import * as admin from 'firebase-admin';
 import credentials from '../credentials.json';
+import dotenv from 'dotenv';
+dotenv.config();
 
 let server;
 
